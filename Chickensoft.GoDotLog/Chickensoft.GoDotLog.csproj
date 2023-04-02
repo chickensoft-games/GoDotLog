@@ -21,7 +21,7 @@
     <PackageId>Chickensoft.GoDotLog</PackageId>
     <PackageReleaseNotes>Chickensoft.GoDotLog release.</PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageTags />
+    <PackageTags>Godot;Chickensoft;Log;Logging;Util;Utilities;Utils</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/chickensoft-games/GoDotLog</PackageProjectUrl>
