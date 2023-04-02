@@ -19,6 +19,8 @@ public class LogTest : TestClass {
   private StringBuilder _warn = null!;
   private StringBuilder _error = null!;
 
+  private readonly string _ln = System.Environment.NewLine;
+
   public LogTest(Node testScene) : base(testScene) { }
 
   public void Setup() {
@@ -47,7 +49,7 @@ public class LogTest : TestClass {
     Setup();
     var log = new GDLog("Prefix");
     log.Print("Hello, world!");
-    _print.ToString().ShouldBe("Prefix: Hello, world!\n");
+    _print.ToString().ShouldBe($"Prefix: Hello, world!{_ln}");
     Cleanup();
   }
 
@@ -58,7 +60,7 @@ public class LogTest : TestClass {
     var st = new Mock<StackTrace>();
     log.Print(new FakeStackTrace("File.cs", "ClassName", "MethodName"));
     _print.ToString().ShouldBe(
-      "Prefix: ClassName.MethodName in File.cs(1,2)\n"
+      $"Prefix: ClassName.MethodName in File.cs(1,2){_ln}"
     );
     Cleanup();
   }
@@ -70,7 +72,7 @@ public class LogTest : TestClass {
     var st = new Mock<StackTrace>();
     log.Print(new FakeStackTrace(null, "ClassName", "MethodName"));
     _print.ToString().ShouldBe(
-      "Prefix: ClassName.MethodName in **(1,2)\n"
+      $"Prefix: ClassName.MethodName in **(1,2){_ln}"
     );
     Cleanup();
   }
@@ -82,7 +84,7 @@ public class LogTest : TestClass {
     var st = new Mock<StackTrace>();
     log.Print(new FakeStackTrace("File.cs", null, "MethodName"));
     _print.ToString().ShouldBe(
-      "Prefix: UnknownClass.MethodName in File.cs(1,2)\n"
+      $"Prefix: UnknownClass.MethodName in File.cs(1,2){_ln}"
     );
     Cleanup();
   }
@@ -95,7 +97,7 @@ public class LogTest : TestClass {
     log.Print(new FakeStackTrace("File.cs", "ClassName", null));
     // No method also results in an unknown class.
     _print.ToString().ShouldBe(
-      "Prefix: UnknownClass.UnknownMethod in File.cs(1,2)\n"
+      $"Prefix: UnknownClass.UnknownMethod in File.cs(1,2){_ln}"
     );
     Cleanup();
   }
@@ -106,9 +108,9 @@ public class LogTest : TestClass {
     var e = new InvalidOperationException("message");
     var log = new GDLog("Prefix");
     log.Print(e);
-    var output = string.Join("\n", new string[] {
+    var output = string.Join(_ln, new string[] {
       "Prefix: An error ocurred.",
-      "Prefix: System.InvalidOperationException: message\n"
+      $"Prefix: System.InvalidOperationException: message{_ln}"
     });
     _print.ToString().ShouldBe(output);
     _error.ToString().ShouldBe(output);
@@ -120,8 +122,8 @@ public class LogTest : TestClass {
     Setup();
     var log = new GDLog("Prefix");
     log.Warn("Hello, world!");
-    _print.ToString().ShouldBe("Prefix: Hello, world!\n");
-    _warn.ToString().ShouldBe("Prefix: Hello, world!\n");
+    _print.ToString().ShouldBe($"Prefix: Hello, world!{_ln}");
+    _warn.ToString().ShouldBe($"Prefix: Hello, world!{_ln}");
     Cleanup();
   }
 
@@ -130,8 +132,8 @@ public class LogTest : TestClass {
     Setup();
     var log = new GDLog("Prefix");
     log.Err("Hello, world!");
-    _print.ToString().ShouldBe("Prefix: Hello, world!\n");
-    _error.ToString().ShouldBe("Prefix: Hello, world!\n");
+    _print.ToString().ShouldBe($"Prefix: Hello, world!{_ln}");
+    _error.ToString().ShouldBe($"Prefix: Hello, world!{_ln}");
     Cleanup();
   }
 
@@ -154,7 +156,7 @@ public class LogTest : TestClass {
       () => log.Assert(false, "error message")
     );
     e.Message.ShouldContain("error message");
-    var output = "Prefix: error message\n";
+    var output = $"Prefix: error message{_ln}";
     _print.ToString().ShouldBe(output);
     _error.ToString().ShouldBe(output);
     Cleanup();
