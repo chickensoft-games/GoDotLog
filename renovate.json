@@ -6,6 +6,9 @@
   ],
   "prHourlyLimit": 2,
   "versioning": "loose",
+  "ignoreDeps": [
+    "Chickensoft.GoDotTest"
+  ],
   "packageRules": [
     {
       "matchPackagePatterns": [
