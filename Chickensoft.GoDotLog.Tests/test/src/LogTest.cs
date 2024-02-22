@@ -109,7 +109,7 @@ public class LogTest : TestClass {
     var log = new GDLog("Prefix");
     log.Print(e);
     var output = string.Join(_ln, new string[] {
-      "Prefix: An error ocurred.",
+      "Prefix: An error occurred.",
       $"Prefix: System.InvalidOperationException: message{_ln}"
     });
     _print.ToString().ShouldBe(output);

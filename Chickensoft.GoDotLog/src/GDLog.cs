@@ -67,7 +67,7 @@ public sealed partial class GDLog : ILog {
   /// <inheritdoc/>
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public void Print(Exception e) {
-    Err("An error ocurred.");
+    Err("An error occurred.");
     Err(e.ToString());
   }
 
