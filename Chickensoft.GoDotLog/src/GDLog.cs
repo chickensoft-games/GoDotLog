@@ -10,7 +10,7 @@ using Godot;
 /// `GD.PushWarning` and `GD.PushError` don't always show up in the output
 /// when debugging.
 /// </summary>
-public partial class GDLog : ILog {
+public sealed partial class GDLog : ILog {
   /// <summary>Default print action (GD.Print).</summary>
   public static readonly Action<string> DefaultPrint
     = GD.Print;
@@ -67,7 +67,7 @@ public partial class GDLog : ILog {
   /// <inheritdoc/>
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public void Print(Exception e) {
-    Err("An error ocurred.");
+    Err("An error occurred.");
     Err(e.ToString());
   }
 
@@ -83,53 +83,5 @@ public partial class GDLog : ILog {
   public void Err(string message) {
     PrintAction(Prefix + ": " + message);
     PushErrorAction(Prefix + ": " + message);
-  }
-
-  /// <inheritdoc/>
-  [MethodImpl(MethodImplOptions.AggressiveInlining)]
-  public void Assert(bool condition, string message) {
-    if (!condition) {
-      Err(message);
-      throw new AssertionException(message);
-    }
-  }
-
-  /// <inheritdoc/>
-  [MethodImpl(MethodImplOptions.AggressiveInlining)]
-  public T Run<T>(Func<T> callback, Action<Exception>? onError = null) {
-    try {
-      return callback();
-    }
-    catch (Exception e) {
-      Print(e);
-      onError?.Invoke(e);
-      throw;
-    }
-  }
-
-  /// <inheritdoc/>
-  [MethodImpl(MethodImplOptions.AggressiveInlining)]
-  public void Run(Action callback, Action<Exception>? onError = null) {
-    try {
-      callback();
-    }
-    catch (Exception e) {
-      Print(e);
-      onError?.Invoke(e);
-      throw;
-    }
-  }
-
-  /// <inheritdoc/>
-  [MethodImpl(MethodImplOptions.AggressiveInlining)]
-  public T Always<T>(Func<T> callback, T fallback) {
-    try {
-      return callback();
-    }
-    catch (Exception e) {
-      Warn($"An error ocurred. Using fallback value `{fallback}`.");
-      Warn(e.ToString());
-      return fallback;
-    }
   }
 }

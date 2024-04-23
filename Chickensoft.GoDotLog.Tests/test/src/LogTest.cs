@@ -109,7 +109,7 @@ public class LogTest : TestClass {
     var log = new GDLog("Prefix");
     log.Print(e);
     var output = string.Join(_ln, new string[] {
-      "Prefix: An error ocurred.",
+      "Prefix: An error occurred.",
       $"Prefix: System.InvalidOperationException: message{_ln}"
     });
     _print.ToString().ShouldBe(output);
@@ -134,107 +134,6 @@ public class LogTest : TestClass {
     log.Err("Hello, world!");
     _print.ToString().ShouldBe($"Prefix: Hello, world!{_ln}");
     _error.ToString().ShouldBe($"Prefix: Hello, world!{_ln}");
-    Cleanup();
-  }
-
-  [Test]
-  public void AssertsSuccessfully() {
-    Setup();
-    var log = new GDLog("Prefix");
-    log.Assert(true, "message");
-    _print.ToString().ShouldBeEmpty();
-    _warn.ToString().ShouldBeEmpty();
-    _error.ToString().ShouldBeEmpty();
-    Cleanup();
-  }
-
-  [Test]
-  public void AssertsError() {
-    Setup();
-    var log = new GDLog("Prefix");
-    var e = Should.Throw<AssertionException>(
-      () => log.Assert(false, "error message")
-    );
-    e.Message.ShouldContain("error message");
-    var output = $"Prefix: error message{_ln}";
-    _print.ToString().ShouldBe(output);
-    _error.ToString().ShouldBe(output);
-    Cleanup();
-  }
-
-  [Test]
-  public void RunsSuccessfully() {
-    Setup();
-    var log = new GDLog("Prefix");
-    log.Run(() => { });
-    _print.ToString().ShouldBeEmpty();
-    _warn.ToString().ShouldBeEmpty();
-    _error.ToString().ShouldBeEmpty();
-    Cleanup();
-  }
-
-  [Test]
-  public void RunsError() {
-    Setup();
-    var log = new GDLog("Prefix");
-    var called = false;
-    var exception = new InvalidOperationException("error message");
-    var e = Should.Throw<Exception>(
-      () => log.Run(
-        () => throw exception,
-        (e) => { e.ShouldBe(exception); called = true; }
-      )
-    );
-    _print.ToString().ShouldNotBeEmpty();
-    called.ShouldBeTrue();
-    e.Message.ShouldContain("error message");
-    Cleanup();
-  }
-
-  [Test]
-  public void RunReturnsSuccessfully() {
-    Setup();
-    var log = new GDLog("Prefix");
-    var result = log.Run(() => "value");
-    result.ShouldBe("value");
-    Cleanup();
-  }
-
-  [Test]
-  public void RunThrowsOnReturn() {
-    Setup();
-    var log = new GDLog("Prefix");
-    var called = false;
-    var exception = new InvalidOperationException("error message");
-    var e = Should.Throw<Exception>(
-      () => log.Run<string>(
-        () => throw exception,
-        (e) => { e.ShouldBe(exception); called = true; }
-      )
-    );
-    called.ShouldBe(true);
-    _print.ToString().ShouldNotBeEmpty();
-    e.Message.ShouldContain("error message");
-    Cleanup();
-  }
-
-  [Test]
-  public void AlwaysReturns() {
-    Setup();
-    var log = new GDLog("Prefix");
-    var result = log.Always(() => "value", "fallback");
-    result.ShouldBe("value");
-    Cleanup();
-  }
-
-  [Test]
-  public void AlwaysReturnsFallback() {
-    Setup();
-    var log = new GDLog("Prefix");
-    var result = log.Always(
-      () => throw new InvalidOperationException("error message"), "fallback"
-    );
-    _warn.ToString().ShouldNotBeEmpty();
     Cleanup();
   }
 
