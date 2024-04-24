@@ -12,7 +12,7 @@
     <DebugType>portable</DebugType>
 
     <Title>Chickensoft.GoDotLog</Title>
-    <Version>1.1.19</Version>
+    <Version>1.1.20</Version>
     <Description>Opinionated Godot logging interface and console implementation for C#.</Description>
     <Copyright>© 2023 Chickensoft</Copyright>
     <Authors>Chickensoft</Authors>
