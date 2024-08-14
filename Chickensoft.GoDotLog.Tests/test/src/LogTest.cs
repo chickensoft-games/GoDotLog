@@ -118,6 +118,21 @@ public class LogTest : TestClass {
   }
 
   [Test]
+  public void PrintsExceptionWithMessage() {
+    Setup();
+    var e = new InvalidOperationException("message");
+    var log = new GDLog("Prefix");
+    log.Print(e, "Override message");
+    var output = string.Join(_ln, new string[] {
+      "Prefix: Override message",
+      $"Prefix: System.InvalidOperationException: message{_ln}"
+    });
+    _print.ToString().ShouldBe(output);
+    _error.ToString().ShouldBe(output);
+    Cleanup();
+  }
+
+  [Test]
   public void Warns() {
     Setup();
     var log = new GDLog("Prefix");
