@@ -27,6 +27,16 @@ public interface ILog {
   void Print(Exception e);
 
   /// <summary>
+  /// Prints an exception with a message for context.
+  /// </summary>
+  /// <param name="e">Exception to print.</param>
+  /// <param name="message">Message to output.</param>
+  void Print(Exception e, string message) {
+    Print(message);
+    Print(e);
+  }
+
+  /// <summary>
   /// Adds a warning message to the log.
   /// </summary>
   /// <param name="message">Message to output.</param>

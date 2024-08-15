@@ -73,6 +73,13 @@ public sealed partial class GDLog : ILog {
 
   /// <inheritdoc/>
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
+  public void Print(Exception e, string message) {
+    Err(message);
+    Err(e.ToString());
+  }
+
+  /// <inheritdoc/>
+  [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public void Warn(string message) {
     PrintAction(Prefix + ": " + message);
     PushWarningAction(Prefix + ": " + message);
