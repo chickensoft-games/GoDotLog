@@ -49,6 +49,12 @@ var result = _log.Always<T>(
 _log.Print(new StackTrace());
 ```
 
+## Install
+
+```sh
+dotnet add package Chickensoft.GoDotLog
+```
+
 [chickensoft-badge]: https://raw.githubusercontent.com/chickensoft-games/chickensoft_site/main/static/img/badges/chickensoft_badge.svg
 [chickensoft-website]: https://chickensoft.games
 [discord-badge]: https://raw.githubusercontent.com/chickensoft-games/chickensoft_site/main/static/img/badges/discord_badge.svg
