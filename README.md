@@ -2,6 +2,9 @@
 
 [![Chickensoft Badge][chickensoft-badge]][chickensoft-website] [![Discord][discord-badge]][discord] [![Read the docs][read-the-docs-badge]][docs] ![line coverage][line-coverage] ![branch coverage][branch-coverage]
 
+> [!WARNING]
+> Chickensoft.GoDotLog has been deprecated and replaced with [Chickensoft.Log] and [Chickensoft.Log.Godot].
+
 Opinionated Godot logging interface and console implementation for C#.
 
 ---
@@ -63,3 +66,5 @@ dotnet add package Chickensoft.GoDotLog
 [docs]: https://chickensoft.games/docsickensoft%20Discord-%237289DA.svg?style=flat&logo=discord&logoColor=white
 [line-coverage]: Chickensoft.GoDotLog.Tests/badges/line_coverage.svg
 [branch-coverage]: Chickensoft.GoDotLog.Tests/badges/branch_coverage.svg
+[Chickensoft.Log]: https://github.com/chickensoft-games/Log
+[Chickensoft.Log.Godot]: https://github.com/chickensoft-games/Log.Godot
